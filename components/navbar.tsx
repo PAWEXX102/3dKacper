@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { Image } from "@nextui-org/react";
+import NextImage from "next/image";
 
 import {
   Navbar,
@@ -16,9 +18,10 @@ import {
   DropdownMenu,
   DropdownItem,
   Button,
+  Divider,
 } from "@nextui-org/react";
 
-import round from '@/public/round.png';
+import round from "@/public/round.png";
 
 import { Products } from "@/const";
 import { usePathname } from "next/navigation.js";
@@ -29,19 +32,6 @@ import { AcmeLogo } from "./Icons.jsx";
 export default function NavBarUI() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
-  console.log(pathname);
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -87,18 +77,29 @@ export default function NavBarUI() {
             }}
           >
             <DropdownItem key="keyrings">
-              
-              <Link href="/products?keyrings" className=" font-semibold w-full" color="foreground">
-                Bryloki
+              <Link
+                href="/products?keyrings"
+                className=" font-semibold w-full"
+                color="foreground"
+              >
+                Breloki
               </Link>
             </DropdownItem>
             <DropdownItem key="figurines">
-              <Link href="/products?figurines" className=" w-full font-semibold" color="foreground">
+              <Link
+                href="/products?figurines"
+                className=" w-full font-semibold"
+                color="foreground"
+              >
                 Figurki
               </Link>
             </DropdownItem>
             <DropdownItem key="gadgets">
-              <Link href="/products?gadgets" className=" w-full font-semibold" color="foreground">
+              <Link
+                href="/products?gadgets"
+                className=" w-full font-semibold"
+                color="foreground"
+              >
                 Gadżety
               </Link>
             </DropdownItem>
@@ -117,29 +118,49 @@ export default function NavBarUI() {
       <NavbarContent justify="end">
         <NavbarItem className="flex">
           <Link href="/cart">
-            <AcmeLogo />
+            <Image
+              as={NextImage}
+              src="/cart.png"
+              alt="cart"
+              width={35}
+              height={35}
+              radius="none"
+            />
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem>
+          <Link color="foreground" className="w-full" href="/products?keyrings" size="lg">
+            Breloki
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link color="foreground" className="w-full" href="/products?figurines" size="lg">
+            Figurki
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link color="foreground" className="w-full" href="/products?gadgets" size="lg">
+            Gadżety
+          </Link>
+        </NavbarMenuItem>
+        <Divider />
+        <NavbarMenuItem>
+          <Link color={pathname == "/" ? "primary" : "foreground"} className="w-full" href="/" size="lg">
+            Strona główna
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link color={pathname == "/products" ? "primary" : "foreground"} className="w-full" href="/products" size="lg">
+            Produkty
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link color={pathname == "/contact" ? "primary" : "foreground"} className="w-full" href="/contact" size="lg">
+            Kontakt
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );
